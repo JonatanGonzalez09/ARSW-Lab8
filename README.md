@@ -3,6 +3,70 @@
 
 ## Escalamiento en Azure con Maquinas Virtuales, Sacale Sets y Service Plans
 
+## Autores
+- David Caycedo
+- Jonatan Gonzalez
+
+## Solución a preguntas parte 1
+**1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?**
+
+_Al momento de crear una maquina una virtual en Azure, se crean los siguientes recursos :_
+- _La maquina virtual_
+- _Una red virtual (VNet)_
+- _Una dirección IP publica_
+- _Un grupo de seguridad de red_
+- _Una cuenta de almacenamiento_
+- _Una interfaz de red_
+- _Un disco_
+
+
+**2. ¿Brevemente describa para qué sirve cada recurso?**
+
+**Maquina Virtual: (VM)** _Son computadoras de software que proporcionan la misma funcionalidad que las computadoras físicas, tambien ejecutan aplicaciones y constan de un sistema operativo y se caracterizan por comportarse como sistemas informáticos separados._
+
+**Red virtual (VNet):** _Es una representación de su propia red en la nube, y es usada generalmente para aprovisionar y administrar redes privadas virtuales (VPN). Al crear una red virtual se crea su propio bloque **CIDR** y se puede vincular a otras redes virtuales y redes locales siempre que los bloques CIDR no se superpongan, ademas tiene control de la configuración del servidor DNS para redes virtuales y segmentación de la red virtual en subredes._
+
+**Direccion IP publica:** _Una direccion IP permite la ubicación de dispositivos digitales que están conectados a Internet para ser identificados y diferenciados de otros dispositivos. En Azure existen dos tipos de direcciones IP las **privadas** que se usan para la comunicación dentro de una red virtual (VNet) de Azure y en la red local, cuando se usa una puerta de enlace de VPN o un circuito ExpressRoute para ampliar la red a Azure y existen las **publicas** que se usan para la comunicación con Internet, incluidos los servicios de acceso público de Azure._
+
+**Grupo de seguridad de red:** _Un grupo de seguridad de red es utilizado para filtrar el tráfico de red hacia y desde los recursos que existan. Un grupo de seguridad de red contiene reglas de seguridad que otorgan o prohíben el tráfico de red entrante o el tráfico de red saliente, de varios tipos de recursos. Otro punto interesante para los grupos de seguridad, es que por cada regla, puede especificar el origen y el destino, el puerto y el protocolo._
+
+**Cuenta de almacenamiento (storage account):** _Una cuenta de almacenamietno se crea para brindar acceso a los servicios en Azure Storage, eso quiere decir que para usar los servicios de Azure necesitamos tener una cuenta de almacenamient, ya que las aplicaciones usan esta cuenta para obtener acceso a los servicios. Por lo general una cuenta de almacenamiento está asociada con una ubicación geográfica específica._
+
+**Interfaz de red (Network interface controller):** _Es el software específico de red que se comunica con el controlador de dispositivo específico de red y la capa IP a fin de proporcionar a la capa IP una interfaz coherente con todos los adaptadores de red que puedan estar presentes. En pocas palabras es el que permite al recurso comunicarse mediante Ethernet o Wi-Fi._
+
+**Disco:** _Los discos administrados de Azure se almacenan como blobs en páginas, que son un objeto de almacenamiento de E/S aleatorio en Azure. Estos discos son una abstracción sobre los blobs en páginas, los contenedores de blobs y las cuentas de almacenamiento de Azure. Con los discos administrados, lo único que debe hacer es aprovisionar el disco y Azure se encarga del resto._
+
+**3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando ```npm FibonacciApp.js```? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?**
+
+* _La aplicación **se cae debido a** que el proceso esta vinculado a la conexion ssh y al cerrar esta el proceso se da por terminado._
+* _La creacción de **Inbound port rule** nos permitira asignarle al servicio un puerto en especifico para que todo el trafico de este pase por dicho puerto, es decir con el inbound podemos permitir o denegar el trafico de red._
+
+**4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.**
+
+**5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.**
+
+**6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:**
+    **- Tiempos de ejecución de cada petición.**
+    **- Si hubo fallos documentelos y explique.**
+    
+**7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?**
+* _Una instancia de **B2ms** cuenta con **2 vCPU**, **8 GiB de RAM**, **16 GiB de Almacenamiento Temporal**, **tiene una Base CPU perf of VM del 60%** y **tiene una Max CPU perf of VM del 200%**._
+* _Una instancia de **B1ls** cuenta con **1 vCPU**, **0.5 GiB de RAM**, **4 GiB de Almacenamiento Temporal**, **tiene una Base CPU perf of VM del 5%** y **tiene una Max CPU perf of VM del 100%**._
+
+**8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?**
+
+_Al aumentar el tamaño de la VM solucionamos el consumo de CPU ya que se disminuye este consumo pero no mejora el tiempo de ejecucion, tiene una leve disminución pero en general este se mantiene constante._
+
+**9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?**
+
+_Al aplicar el cambio de tamaño a la VM debemos de reiniciar la maquina, y esto implica que los servicios se terminen, generando una perdida de disponibilidad por un periodo de tiempo, mientras se vuelven a iniciar los servicios._
+
+**10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?**
+
+_Si Hubo mejora en el consumo de CPU, ya que como existen mas nucleos puede procesar mas solicitudes. Pero en los tiempos de respuesta no hubo mejoras, ya que esto depende de la aplicación en si y no del procesador que tenga que sistema._
+
+**11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?**
+
 ### Dependencias
 * Cree una cuenta gratuita dentro de Azure. Para hacerlo puede guiarse de esta [documentación](https://azure.microsoft.com/en-us/free/search/?&ef_id=Cj0KCQiA2ITuBRDkARIsAMK9Q7MuvuTqIfK15LWfaM7bLL_QsBbC5XhJJezUbcfx-qAnfPjH568chTMaAkAsEALw_wcB:G:s&OCID=AID2000068_SEM_alOkB9ZE&MarinID=alOkB9ZE_368060503322_%2Bazure_b_c__79187603991_kwd-23159435208&lnkd=Google_Azure_Brand&dclid=CjgKEAiA2ITuBRDchty8lqPlzS4SJAC3x4k1mAxU7XNhWdOSESfffUnMNjLWcAIuikQnj3C4U8xRG_D_BwE). Al hacerlo usted contará con $200 USD para gastar durante 1 mes.
 
