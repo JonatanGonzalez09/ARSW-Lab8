@@ -67,6 +67,65 @@ _Si Hubo mejora en el consumo de CPU, ya que como existen mas nucleos puede proc
 
 **11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?**
 
+## Solución preguntas parte 2
+**1. ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?**
+
+_En Azure existen dos tipos de balanceadores de carga:_
+
+_**Un Balanceador de Carga Publico:** Que puede proporcionar conexiones salientes para máquinas virtuales (VM) dentro de su red virtual.Estas conexiones se logran traduciendo sus direcciones IP privadas a direcciones IP públicas, en general estos balanceadores de carga son usados para equilibrar la carga del tráfico de Internet a sus máquinas virtuales._
+
+_**Un Balanceador de Carga Interno (Privado):** Los cuales necesitan IP privadas solo en la interfaz. Estos balanceadores utilizan para equilibrar el tráfico dentro de una red virtual._
+
+_**¿Qué es SKU, qué tipos hay y en qué se diferencian?**_
+
+_SKU : Sus siglas significan Unidad de mantenimiento de existencias y es un número o código asignado a un elemento para poder identificarlo._
+_Existen 6 tipos diferentes de SKU:_
+- _**Standard:** Es asignado a un producto estandar, y estos se pueden vender individualmente o como partes de conjuntos, paquetes o colecciones._
+- _**Component:** Son piezas incluidas en ensamblajes, paquetes y colecciones y  no se pueden vender como productos independientes._
+- _**Assembly:** Son necesarios para el ensamblaje deben ubicarse dentro de la misma instalación, ya sea su instalación local o la de un proveedor de Dropship / JIT / 3PL y para benderlos todas las cantidades las SKU asociadas deben estar disponibles._
+- _**Bundle:** Son SKU que tienen SKU asociados que no necesitan ensamblarse antes del envío, estas pueden enviarse a los clientes desde diferentes fuentes de cumplimiento, y para venderlos todas las cantidades necesarias de todos los SKU asociados deben estar disponibles._
+- _**Collection:** Son SKU asociadas vinculadas con fines de marketing para vender o vender productos relacionados, y estos SKU no pueden ser vendidos._
+- _**Virtual:** Estos SKU no requieren inventario y funcionan con un nivel de inventario de 0, tienen SKU virtuales los cuales no se sincronizan actualmente en el catálogo, pero se asociarán con pedidos que se importen con una SKU coincidente._
+
+**2. ¿Cuál es el propósito del *Backend Pool*?**
+
+_El Backend Pool hace referencia al conjunto de backends que reciben tráfico similar para su aplicación.El propósito de este backend pool es alojar la maquina virtua que seran dependendientes del balanceador de carga, tambien tiene un SKU asociado el cual dependiendo la zona tiene cierta capacidad, por ejemplo el SKU basico el back-end pool tiene una capacidad de 100 instancias de maquinas virtuales mientras que el SKU estandar cuenta con una capacidad de 1000 instancias._
+
+**3. ¿Cuál es el propósito del *Health Probe*?**
+
+_El proposito del Healt Probe es informar al balanceador de carga que instancias en el back-end pool estan en un estado adecuado para recibir una peticion, y asi verificar que ninguna sonda falle, ya que si falla el balanceador de carga detiene el flujo hacia estas instancias._
+
+**4. ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.**
+
+_El propósito de las reglas del balanciador de carga es llevar a cabo su principal funcionalidad, es decir especificar cuando se crea una nueva instancia de acuerdo a la cantidad de flujo que haya en la red y asi poder distribuir de manera eficiente las solicitudes entre las maquinas._
+
+**5. ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?**
+
+_**Virtua Network:** Es la capacidad de los usuarios para comunicarse de forma transparente local y remotamente a través de redes similares y diferentes mediante una interfaz de usuario simple y consistente._
+
+_**Subnet:** Una subred es un rango de direcciones lógicas. es muy util utilizarlas cuando las redes se vulven demasiado grandes y es optimo dividirlas en subredes._
+
+_**Address Space:** Es la cantidad de memoria asignada para todas las direcciones posibles para una entidad computacional, tambien se dice que un espacio de direcciones puede referirse a un rango de direcciones físicas o virtuales accesibles para un procesador o reservadas para un proceso._
+
+_**Address Range:** Es el numero que indica cuantas direcciones tenemos en ese espacio de direcciones y depende de la cantidad de recursos que se necesiten en la red virtual, el rango sera mayor o menor._
+
+**6. ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?**
+
+ * _**Availability Zones:** Son ubicaciones físicas únicas dentro de una región de Azure. Cada zona está compuesta por uno o más centros de datos equipados con alimentación, refrigeración y redes independientes, para garantizar la resistencia._
+ 
+ * _Se seleccionan tres zonas diferentes ya que protege las aplicaciones y los datos de fallas del centro de datos._
+ 
+ * _Una **IP zone-redundant**, es una ip que esta replicada en varias zonas de disponibilidad._
+
+**7. ¿Cuál es el propósito del *Network Security Group*?**
+
+_El propósito principal de un grupo de seguridad de red es configurar las reglas de seguridad que permiten o prohíben el tráfico de red entrante o el tráfico de red saliente de varios tipos de recursos de Azure._
+
+**8. Informe de newman 1 (Punto 2)**
+
+**9. Presente el Diagrama de Despliegue de la solución.**
+
+
 ### Dependencias
 * Cree una cuenta gratuita dentro de Azure. Para hacerlo puede guiarse de esta [documentación](https://azure.microsoft.com/en-us/free/search/?&ef_id=Cj0KCQiA2ITuBRDkARIsAMK9Q7MuvuTqIfK15LWfaM7bLL_QsBbC5XhJJezUbcfx-qAnfPjH568chTMaAkAsEALw_wcB:G:s&OCID=AID2000068_SEM_alOkB9ZE&MarinID=alOkB9ZE_368060503322_%2Bazure_b_c__79187603991_kwd-23159435208&lnkd=Google_Azure_Brand&dclid=CjgKEAiA2ITuBRDchty8lqPlzS4SJAC3x4k1mAxU7XNhWdOSESfffUnMNjLWcAIuikQnj3C4U8xRG_D_BwE). Al hacerlo usted contará con $200 USD para gastar durante 1 mes.
 
