@@ -1,7 +1,7 @@
 ### Escuela Colombiana de Ingeniería
 ### Arquitecturas de Software - ARSW
 
-## Escalamiento en Azure con Maquinas Virtuales, Sacale Sets y Service Plans
+## Escalamiento en Azure con Maquinas Virtuales, Scale Sets y Service Plans
 
 ## Autores
 - David Caycedo
@@ -43,12 +43,34 @@ _Al momento de crear una maquina una virtual en Azure, se crean los siguientes r
 
 **4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.**
 
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/tiempos.JPG)
+
 **5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.**
+
+B1ls
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/cpu1.png)
+
+B2ms
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/cpu2.png)
 
 **6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:**
     **- Tiempos de ejecución de cada petición.**
     **- Si hubo fallos documentelos y explique.**
     
+ B1ls
+ 
+ ![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/postman1.png)   
+ ![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/res1b.png) 
+ 
+ B2ms
+ 
+  ![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/res2a.png) 
+    ![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/res2b.png) 
+
+Se presentaba el siguiente error: ECONNRESET: Significa que el servidor cerró la conexión de una manera que probablemente no era normal.
+
 **7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?**
 * _Una instancia de **B2ms** cuenta con **2 vCPU**, **8 GiB de RAM**, **16 GiB de Almacenamiento Temporal**, **tiene una Base CPU perf of VM del 60%** y **tiene una Max CPU perf of VM del 200%**._
 * _Una instancia de **B1ls** cuenta con **1 vCPU**, **0.5 GiB de RAM**, **4 GiB de Almacenamiento Temporal**, **tiene una Base CPU perf of VM del 5%** y **tiene una Max CPU perf of VM del 100%**._
@@ -122,6 +144,17 @@ _**Address Range:** Es el numero que indica cuantas direcciones tenemos en ese e
 _El propósito principal de un grupo de seguridad de red es configurar las reglas de seguridad que permiten o prohíben el tráfico de red entrante o el tráfico de red saliente de varios tipos de recursos de Azure._
 
 **8. Informe de newman 1 (Punto 2)**
+
+Al realizar las pruebas se presentaron algunos fallos igual que en la parte 1, pero igualmente se ven que puede manejar una gran cantidad de peticiones exitosas gracias al equilibrador de carga.
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/2a.png)
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/2b.png)
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/2c.png)
+
+![Imágen 2](https://github.com/JonatanGonzalez09/ARSW-Lab8/blob/master/images/part1/2d.png)
+
 
 **9. Presente el Diagrama de Despliegue de la solución.**
 
